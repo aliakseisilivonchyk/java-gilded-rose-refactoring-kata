@@ -1,6 +1,15 @@
 package com.gildedrose;
 
 class GildedRose {
+    private static final int MAX_ITEM_QUALITY = 50;
+    private static final int MIN_ITEM_QUALITY = 0;
+    private static final int LAST_DAY_TO_SELL_IN_ITEM = 0;
+    private static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
+    private static final String AGED_BRIE = "Aged Brie";
+    private static final String BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
+    private static final int BACKSTAGE_ITEM_SELL_IN_DAY_FIRST_THRESHOLD = 11;
+    private static final int BACKSTAGE_ITEM_SELL_IN_DAY_SECOND_THRESHOLD = 6;
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -15,19 +24,19 @@ class GildedRose {
 
     private static void updateItemQuality(Item item) {
         switch (item.name) {
-            case "Sulfuras, Hand of Ragnaros":
+            case SULFURAS_HAND_OF_RAGNAROS:
                 return;
-            case "Aged Brie":
+            case AGED_BRIE:
                 increaseItemQualityIfNotMax(item);
                 break;
-            case "Backstage passes to a TAFKAL80ETC concert":
+            case BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT:
                 increaseItemQualityIfNotMax(item);
 
-                if (item.sellIn < 11) {
+                if (item.sellIn < BACKSTAGE_ITEM_SELL_IN_DAY_FIRST_THRESHOLD) {
                     increaseItemQualityIfNotMax(item);
                 }
 
-                if (item.sellIn < 6) {
+                if (item.sellIn < BACKSTAGE_ITEM_SELL_IN_DAY_SECOND_THRESHOLD) {
                     increaseItemQualityIfNotMax(item);
                 }
                 break;
@@ -36,14 +45,14 @@ class GildedRose {
                 break;
         }
 
-        item.sellIn--;
+        decreaseItemSellIn(item);
 
-        if (item.sellIn < 0) {
+        if (item.sellIn < LAST_DAY_TO_SELL_IN_ITEM) {
             switch (item.name) {
-                case "Aged Brie":
+                case AGED_BRIE:
                     increaseItemQualityIfNotMax(item);
                     break;
-                case "Backstage passes to a TAFKAL80ETC concert":
+                case BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT:
                     setItemQualityToMin(item);
                     break;
                 default:
@@ -54,18 +63,22 @@ class GildedRose {
     }
 
     private static void increaseItemQualityIfNotMax(Item item) {
-        if (item.quality < 50) {
+        if (item.quality < MAX_ITEM_QUALITY) {
             item.quality++;
         }
     }
 
     private static void decreaseItemQualityIfNotMin(Item item) {
-        if (item.quality > 0) {
+        if (item.quality > MIN_ITEM_QUALITY) {
             item.quality--;
         }
     }
 
     private static void setItemQualityToMin(Item item) {
-        item.quality = 0;
+        item.quality = MIN_ITEM_QUALITY;
+    }
+
+    private static void decreaseItemSellIn(Item item) {
+        item.sellIn--;
     }
 }
