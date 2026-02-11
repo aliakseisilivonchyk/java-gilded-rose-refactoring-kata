@@ -14,35 +14,41 @@ class GildedRose {
     }
 
     private static void updateItemQuality(Item item) {
-        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return;
-        }
-
-        if (item.name.equals("Aged Brie")) {
-            increaseItemQualityIfNotMax(item);
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            increaseItemQualityIfNotMax(item);
-
-            if (item.sellIn < 11) {
+        switch (item.name) {
+            case "Sulfuras, Hand of Ragnaros":
+                return;
+            case "Aged Brie":
                 increaseItemQualityIfNotMax(item);
-            }
-
-            if (item.sellIn < 6) {
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
                 increaseItemQualityIfNotMax(item);
-            }
-        } else {
-            decreaseItemQualityIfNotMin(item);
+
+                if (item.sellIn < 11) {
+                    increaseItemQualityIfNotMax(item);
+                }
+
+                if (item.sellIn < 6) {
+                    increaseItemQualityIfNotMax(item);
+                }
+                break;
+            default:
+                decreaseItemQualityIfNotMin(item);
+                break;
         }
 
         item.sellIn--;
 
         if (item.sellIn < 0) {
-            if (item.name.equals("Aged Brie")) {
-                increaseItemQualityIfNotMax(item);
-            } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                setItemQualityToMin(item);
-            } else {
-                decreaseItemQualityIfNotMin(item);
+            switch (item.name) {
+                case "Aged Brie":
+                    increaseItemQualityIfNotMax(item);
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    setItemQualityToMin(item);
+                    break;
+                default:
+                    decreaseItemQualityIfNotMin(item);
+                    break;
             }
         }
     }
