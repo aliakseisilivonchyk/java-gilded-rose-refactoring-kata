@@ -1,4 +1,6 @@
-package com.gildedrose;
+package com.gildedrose.strategy.base;
+
+import com.gildedrose.Item;
 
 public abstract class UpdateStrategy {
 

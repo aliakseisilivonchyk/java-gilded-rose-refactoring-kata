@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.*;
+import com.gildedrose.strategy.base.UpdateStrategy;
+
 import java.util.HashMap;
 import java.util.Map;
 

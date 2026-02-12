@@ -1,4 +1,7 @@
-package com.gildedrose;
+package com.gildedrose.strategy;
+
+import com.gildedrose.Item;
+import com.gildedrose.strategy.base.UpdateStrategy;
 
 public class DefaultUpdateStrategy extends UpdateStrategy {
 
