@@ -24,7 +24,7 @@ class GildedRose {
         updateStrategies.put(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT, new BackstagePassesUpdateStrategy());
         updateStrategies.put(CONJURED, new ConjuredUpdateStrategy());
 
-        defaultUpdateStrategy = new UpdateStrategy();
+        defaultUpdateStrategy = new DefaultUpdateStrategy();
     }
 
     public void updateQuality() {
